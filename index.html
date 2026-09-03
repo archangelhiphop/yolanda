@@ -75,7 +75,7 @@
 <body onload="init();">
 
 <div id="animation_container">
-  <canvas id="canvas" width="700" height="950" style="display:none;"></canvas>
+  <canvas id="canvas" width="900" height="750" style="display:none;"></canvas>
   <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; position:absolute; left:0; top:0;"></div>
 </div>
 <div id="_preload_div_">Loading…</div>
@@ -96,24 +96,23 @@
    CONFIG — this is the only section you edit for each new painting.
    ===================================================================== */
 const CONFIG = {
-  width: 700,
-  height: 950,
+  width: 900,
+  height: 750,
   backgroundColor: "#1c1c1c",
   background: "blackpapertexture.png",
-  backgroundRotation: 0, // degrees — set to 90 if the background looks sideways
-  backgroundOverfill: 1.08, // scales background slightly beyond canvas edges to hide soft/transparent borders
+  backgroundRotation: 90, // degrees — rotates the background image only (e.g. 90 to turn a landscape photo vertical)
+  backgroundOverfill: 1.08, // scales the background slightly beyond the canvas edges to hide any soft/transparent border in the source image
   pieces: [
-    { id: "profile",    src: "profile.png",    x: 522.0, y: 345.5, rotation: 0, scale: 0.180 },
-    { id: "tablecloth", src: "tablecloth.png", x: 468.5, y: 156.5, rotation: 0, scale: 0.180 },
-    { id: "yellow2",    src: "yellow2.png",    x: 415.0, y: 250.0, rotation: 0, scale: 0.170 },
-    { id: "yellow1",    src: "yellow1.png",    x: 446.5, y: 251.0, rotation: 0, scale: 0.170 },
-    { id: "green",      src: "green.png",      x: 473.5, y: 586.5, rotation: 90, scale: 0.180 },
-    { id: "bag",        src: "bag.png",        x: 404.0, y: 691.0, rotation: 0, scale: 0.180 },
-    { id: "cup",        src: "cup.png",        x: 269.5, y: 598.0, rotation: 0, scale: 0.180 },
-    { id: "mouth",      src: "mouth.png",      x: 474.0, y: 509.5, rotation: 0, scale: 0.180 },
-    { id: "face",       src: "face.png",       x: 321.0, y: 360.5, rotation: 0, scale: 0.180 },
-    { id: "arroz",      src: "arroz.png",      x: 267.5, y: 219.5, rotation: 0, scale: 0.180 },
-    { id: "spoon",      src: "spoon.png",      x: 115.0, y: 448.5, rotation: 0, scale: 0.180 },
+    { id: "platanogreen", src: "platanogreen.png", x: 511.0, y: 249.0, rotation: 0, scale: 0.180 },
+    { id: "pana",         src: "pana.png",         x: 513.5, y: 466.0, rotation: 180, scale: 0.180 },
+    { id: "yucca",        src: "yucca.png",        x: 363.5, y: 251.5, rotation: 180, scale: 0.182 },
+    { id: "platanoyellow",src: "platanoyellow.png",x: 317.0, y: 519.0, rotation: 0, scale: 0.176 },
+    { id: "yautia",       src: "yautia.png",       x: 419.5, y: 473.5, rotation: 0, scale: 0.176 },
+    { id: "batata",       src: "batata.png",       x: 467.5, y: 607.0, rotation: 0, scale: 0.182 },
+    { id: "guineogreen",  src: "guineogreen.png",  x: 285.0, y: 92.5, rotation: 180, scale: 0.204 },
+    { id: "guineoblack",  src: "guineoblack.png",  x: 327.5, y: 94.0, rotation: 270, scale: 0.214 },
+    { id: "machete",      src: "machete.png",      x: 607.5, y: 503.5, rotation: 0, scale: 0.172 },
+    { id: "pava",         src: "pava.png",         x: 636.5, y: 195.5, rotation: 0, scale: 0.154 },
   ]
 };
 /* ===================================================================== */
@@ -158,6 +157,8 @@ function handleComplete(evt) {
     bg.regY = bgImg.height / 2;
     bg.rotation = rot;
     if (rot % 180 !== 0) {
+      // Image is turned on its side, so its width/height are swapped
+      // relative to the canvas — fit accordingly.
       bg.scaleX = CONFIG.height / bgImg.width;
       bg.scaleY = CONFIG.width / bgImg.height;
     } else {
