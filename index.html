@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Interactive Painting</title>
 <style>
-  html, body { margin: 0; padding: 0; background: #111; overflow: hidden; }
+  html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
 
   #animation_container {
     position: absolute;
@@ -128,7 +128,7 @@ function init() {
   preloaderDiv = document.getElementById("_preload_div_");
   document.getElementById("animation_container").style.width = CONFIG.width + "px";
   document.getElementById("animation_container").style.height = CONFIG.height + "px";
-  document.getElementById("animation_container").style.backgroundColor = CONFIG.backgroundColor;
+  document.getElementById("animation_container").style.backgroundColor = "transparent";
 
   var manifest = CONFIG.pieces.map(p => ({ src: p.src, id: p.id }));
   if (CONFIG.background) manifest.unshift({ src: CONFIG.background, id: "__background__" });
